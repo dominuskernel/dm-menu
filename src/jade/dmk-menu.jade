@@ -1,0 +1,15 @@
+.dmk-menu
+    .menu-container(ng-if="dmkType ==='horizontal'")
+        ul
+            li(ng-repeat="option in dmkOptions track by $index"
+                ng-click="getNameOption(option.name, $index)"
+                class="option-nav-{{$index + 1}}") {{option.name}} {{option.isActive}}
+                ul.dropdown-container(ng-if="option.isActive == true")
+                    li(ng-repeat="dropdown in option.dropdowns track by $index"
+                        ng-click="getNameDropdown(dropdown.name, $parent.$index, $index); $event.stopPropagation()"
+                        class="dropdown-nav-{{$index + 1}}") {{dropdown.name}} {{dropdown.isActive}}
+                        ul.submenu-container(ng-if="dropdown.isActive == true")
+                            li(ng-repeat="suboption in dropdown.subOptions"
+                                ng-click="getNameSuboption(suboption.name); $event.stopPropagation()"
+                                class = "suboption-nav-{{$index}}") {{suboption.name}}
+

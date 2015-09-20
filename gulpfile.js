@@ -1,12 +1,15 @@
 var gulp            = require('gulp'),
     // this is an arbitrary object that loads all gulp plugins in package.json.
     $           = require("gulp-load-plugins")(),
-    path        = require('path'),
     browserSync = require('browser-sync'),
+    coffeelint  = require("gulp-coffeelint"),
+    del         = require("del"),
     merge       = require('merge-stream'),
+    path        = require('path'),
     reload      = browserSync.reload,
+    runSequence = require('run-sequence'),
     tinylr      = require('tiny-lr'),
-    sass        = require('gulp-sass');
+    sass        = require('gulp-sass'),
     server      = tinylr();
 
 gulp.task('browser-sync', function() {
@@ -20,14 +23,20 @@ gulp.task('browser-sync', function() {
 gulp.task('coffee', function() {
     return gulp.src('src/scripts/*.coffee')
         .pipe($.plumber())
+        .pipe(coffeelint())
+        .pipe(coffeelint.reporter())
         .pipe($.coffee({bare: true}).on('error', $.util.log))
         .pipe(gulp.dest('views/scripts'))
         .pipe(browserSync.reload({stream: true}))
         .pipe($.livereload( server ));
 });
 
+gulp.task('clean-views', function(){
+    return del(['views/**/*']);
+});
+
 gulp.task('compass', function() {
-  return gulp.src('./src/stylesheets/*.scss')
+  return gulp.src('./src/stylesheets/*.sass')
     .pipe($.plumber())
     .pipe(browserSync.reload({stream: true}))
     .pipe($.compass({
@@ -41,7 +50,7 @@ gulp.task('compass', function() {
 gulp.task('components', function(){
     return gulp.src('bower_components/**/*.*')
         .pipe($.plumber())
-        .pipe(gulp.dest('views/bower_componets'))
+        .pipe(gulp.dest('views/bower_components'))
         .pipe(browserSync.reload({stream: true}))
         .pipe($.livereload( server ));
 });
@@ -53,9 +62,8 @@ gulp.task('demo', function() {
           pretty: true
       }))
       .pipe(gulp.dest('views'))
-      .pipe(browserSync.reload({stream: true}))
-      .pipe( $.livereload( server ) );
-  var scssDemo = gulp.src('demo/main.scss')
+      .pipe(browserSync.reload({stream: true}));
+  var sassDemo = gulp.src('demo/main.sass')
       .pipe($.plumber())
       .pipe($.compass({
           css: 'views',
@@ -63,15 +71,22 @@ gulp.task('demo', function() {
       }))
       .pipe(gulp.dest('views'))
       .pipe(browserSync.reload({stream: true}))
-      .pipe($.livereload( server ));
+      .pipe( $.livereload( server ) );
   var coffeeDemo = gulp.src('demo/app.coffee')
       .pipe($.plumber())
+      .pipe(coffeelint())
+      .pipe(coffeelint.reporter())
       .pipe($.coffee({bare: true}).on('error', $.util.log))
       .pipe(gulp.dest('views'))
       .pipe(browserSync.reload({stream: true}))
-      .pipe($.livereload( server ));
+      .pipe( $.livereload( server ) );
+  var mocksDemo = gulp.src('demo/mocks/*.json')
+      .pipe($.plumber())
+      .pipe(gulp.dest('views/mocks'))
+      .pipe(browserSync.reload({stream: true}))
+      .pipe( $.livereload( server ) );
+  return merge(jadeDemo, sassDemo, coffeeDemo, mocksDemo)
 
-    return merge(jadeDemo, scssDemo, coffeeDemo)
 });
 
 gulp.task('jade', function () {
@@ -86,12 +101,15 @@ gulp.task('jade', function () {
 
 gulp.task('build', ['coffee', 'compass', 'components', 'demo', 'jade']);
 
-gulp.task('serve', ['build', 'browser-sync'], function () {
+gulp.task('server', function (callback) {
+  runSequence('clean-views','build','browser-sync');
   gulp.watch('src/scripts/*.coffee',['coffee', reload]);
   gulp.watch('src/stylesheets/*.scss',['compass', reload]);
   gulp.watch('src/bower_components/**/*.*',['components', reload]);
-  gulp.watch('demo/**/*.*'['demo', reload]);
-  gulp.watch('src/jade/*.jade', ['views', reload]);
+  gulp.watch('demo/index.jade', ['demo', reload]);
+  gulp.watch('demo/main.sass', ['demo', reload]);
+  gulp.watch('demo/app.coffee', ['demo', reload]);
+  gulp.watch('src/jade/*.jade', ['jade', reload]);
 });
 
-gulp.task('default', ['serve']);
+gulp.task('default', ['server']);

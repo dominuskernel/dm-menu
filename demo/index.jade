@@ -1,6 +1,8 @@
 doctype html
-html
+html(ng-app="app")
     include ./includes/head
-    body
-        h1 Ready
+    body(ng-controller='LoadDataMenu')
+        h1 dmk-menu
+        div(dmk-menu, dmk-type="horizontal" dmk-options = "dmkOptions" dmk-name-option="optionName")
+        p {{optionName}}
         include ./includes/scripts

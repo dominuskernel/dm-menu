@@ -3,15 +3,25 @@
   <head lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Menu component">
+    <link rel="stylesheet" type="text/css" href="stylesheets/dmk-menu.css">
     <title>Componente demo</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   </head>
   <body ng-controller="LoadDataMenu">
     <h1>dmk-menu</h1>
-    <div dmk-menu dmk-type="horizontal" dmk-options="dmkOptions" dmk-name-option="optionName" dmk-is-active="isActive"></div>
-    <p>{{optionName}}</p>
+    <h3>Horizontal menu</h3>
+    <div dmk-menu dmk-type="horizontal" dmk-options="dmkOptions" dmk-name-option="optionName"></div>
+    <p style="margin: 50px">Scope: {{optionName}}</p>
+    <pre>div(dmk-menu, dmk-type="horizontal" dmk-options = "dmkOptions" dmk-name-option="optionName")
+p(style="margin: 50px") Scope: {{optionName}}
+</pre>
+    <h3>Vertical menu</h3>
+    <div dmk-menu dmk-type="vertical" dmk-options="dmkOptions" dmk-name-option="optionName"></div>
+    <p style="margin: 50px">Scope: {{optionName}}</p>
+    <pre>div(dmk-menu, dmk-type="vertical" dmk-options = "dmkOptions" dmk-name-option="optionName")
+p(style="margin: 80px") Scope: {{optionName}}
+</pre>
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="scripts/menu.js"></script>
     <script src="app.js"></script>

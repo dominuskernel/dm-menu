@@ -104,7 +104,7 @@ gulp.task('build', ['coffee', 'compass', 'components', 'demo', 'jade']);
 gulp.task('server', function (callback) {
   runSequence('clean-views','build','browser-sync');
   gulp.watch('src/scripts/*.coffee',['coffee', reload]);
-  gulp.watch('src/stylesheets/*.scss',['compass', reload]);
+  gulp.watch('src/stylesheets/*.sass',['compass', reload]);
   gulp.watch('src/bower_components/**/*.*',['components', reload]);
   gulp.watch('demo/index.jade', ['demo', reload]);
   gulp.watch('demo/main.sass', ['demo', reload]);

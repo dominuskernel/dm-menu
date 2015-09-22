@@ -1,7 +1,51 @@
-.dmk-menu
-  .menu-container
-    background-color: #000
+@mixin navs($options, $display)
+  @for $i from 1 through $options
+    .option-nav-#{$i}
+      margin-right: 10px
+      position: relative
+      @if $display == vertical
+        display: block
+      @else
+        display: inline-block
 
-  .option-nav
-    border: 1px solid #fff
+    .dropdown-container
+      padding-left: 0
+      position: absolute
+      @if $display == vertical
+        display: inline-block
+        z-index: 2
+
+      @else
+        display: block
+        left: 0
+        top: 100%
+
+    .dropdown-nav-#{$i}
+      display: block
+      list-style-type: none
+      left: 0
+      position: relative
+      top: 0
+
+
+    .submenu-container
+      padding-left: 0
+      position: absolute
+      left: 100%
+      top: 0
+      z-index: 2
+
+    .suboption-nav-#{$i}
+      display: block
+      list-style-type: none
+
+
+
+.dmk-menu
+  .menu-container-horizontal
+    @include navs(15, horizontal)
+
+  .menu-container-vertical
+    @include navs(15, vertical)
+
 

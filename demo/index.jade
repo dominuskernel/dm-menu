@@ -3,6 +3,20 @@ html(ng-app="app")
     include ./includes/head
     body(ng-controller='LoadDataMenu')
         h1 dmk-menu
+        h3 Horizontal menu
         div(dmk-menu, dmk-type="horizontal" dmk-options = "dmkOptions" dmk-name-option="optionName")
-        p {{optionName}}
+
+        p(style="margin: 50px") Scope: {{optionName}}
+
+        pre.
+            div(dmk-menu, dmk-type="horizontal" dmk-options = "dmkOptions" dmk-name-option="optionName")
+            p(style="margin: 50px") Scope: {{optionName}}
+
+        h3 Vertical menu
+        div(dmk-menu, dmk-type="vertical" dmk-options = "dmkOptions" dmk-name-option="optionName")
+        p(style="margin: 50px") Scope: {{optionName}}
+        pre.
+            div(dmk-menu, dmk-type="vertical" dmk-options = "dmkOptions" dmk-name-option="optionName")
+            p(style="margin: 80px") Scope: {{optionName}}
+
         include ./includes/scripts

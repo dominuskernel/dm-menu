@@ -1,12 +1,12 @@
 
 <div class="dmk-menu">
-  <div ng-if="dmkType ==='horizontal'" class="menu-container">
+  <div class="menu-container-{{dmkType}}">
     <ul>
-      <li ng-repeat="option in dmkOptions track by $index" ng-click="getNameOption(option.name, $index)" class="option-nav-{{$index + 1}}">{{option.name}} {{option.isActive}}
+      <li ng-repeat="option in dmkOptions track by $index" ng-click="getNameOption(option.name, $index)" class="option-nav-{{$index + 1}}">{{option.name}}
         <ul ng-if="option.isActive == true" class="dropdown-container">
-          <li ng-repeat="dropdown in option.dropdowns track by $index" ng-click="getNameDropdown(dropdown.name, $parent.$index, $index); $event.stopPropagation()" class="dropdown-nav-{{$index + 1}}">{{dropdown.name}} {{dropdown.isActive}}
+          <li ng-repeat="dropdown in option.dropdowns track by $index" ng-click="getNameDropdown(dropdown.name, $parent.$index, $index); $event.stopPropagation()" class="dropdown-nav-{{$index + 1}}">{{dropdown.name}}
             <ul ng-if="dropdown.isActive == true" class="submenu-container">
-              <li ng-repeat="suboption in dropdown.subOptions" ng-click="getNameSuboption(suboption.name); $event.stopPropagation()" class="suboption-nav-{{$index}}">{{suboption.name}}</li>
+              <li ng-repeat="suboption in dropdown.subOptions" ng-click="getNameSuboption(suboption.name); $event.stopPropagation()" class="suboption-nav-{{$index + 1}}">{{suboption.name}}</li>
             </ul>
           </li>
         </ul>

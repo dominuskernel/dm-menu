@@ -1,6 +1,6 @@
 {
-  "name": "dm-menu",
-  "version": "0.0.0",
+  "name": "dmk-menu",
+  "version": "0.1",
   "dependencies": {
     "angular-bootstrap": "https://github.com/angular-ui/bootstrap-bower.git",
     "bootstrap": "^3",

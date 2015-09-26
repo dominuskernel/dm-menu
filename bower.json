@@ -4,7 +4,10 @@
   "dependencies": {
     "angular-bootstrap": "https://github.com/angular-ui/bootstrap-bower.git",
     "bootstrap": "^3",
-    "jquery":"^2.1"
+    "jquery":"^2.1",
+    "mobile-angular-ui":"^1.2",
+    "ng-device-detector":"^1.1"
+
   },
   "devDependencies": {}
 }

@@ -9,6 +9,7 @@ do ->
       scope:
         dmkOptions: "="
         dmkNameOption: "="
+        dmkIsPortableDevice: "="
         dmkType: "@"
 
       link: (scope) ->

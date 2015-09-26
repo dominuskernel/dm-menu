@@ -1,5 +1,5 @@
 .dmk-menu
-    div(class="menu-container-{{dmkType}}")
+    div(ng-if="dmkIsPortableDevice == false", class="menu-container-{{dmkType}}")
         ul
             li(ng-repeat="option in dmkOptions track by $index"
                 ng-click="getNameOption(option.name, $index)"
@@ -13,3 +13,5 @@
                                 ng-click="getNameSuboption(suboption.name); $event.stopPropagation()"
                                 class = "suboption-nav-{{$index + 1}}") {{suboption.name}}
 
+    div(ng-if="dmkIsPortableDevice == true")
+        span hola

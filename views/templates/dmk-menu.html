@@ -1,6 +1,6 @@
 
 <div class="dmk-menu">
-  <div class="menu-container-{{dmkType}}">
+  <div ng-if="dmkIsPortableDevice == false" class="menu-container-{{dmkType}}">
     <ul>
       <li ng-repeat="option in dmkOptions track by $index" ng-click="getNameOption(option.name, $index)" class="option-nav-{{$index + 1}}">{{option.name}}
         <ul ng-if="option.isActive == true" class="dropdown-container">
@@ -13,4 +13,5 @@
       </li>
     </ul>
   </div>
+  <div ng-if="dmkIsPortableDevice == true"><span>hola</span></div>
 </div>

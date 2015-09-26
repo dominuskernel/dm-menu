@@ -8,6 +8,7 @@
         scope: {
           dmkOptions: "=",
           dmkNameOption: "=",
+          dmkIsPortableDevice: "=",
           dmkType: "@"
         },
         link: function(scope) {

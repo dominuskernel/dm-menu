@@ -14,7 +14,6 @@
     "gulp-jade": "~0.10.0",
     "gulp-livereload": "~2.1.1",
     "tiny-lr": "0.1.4",
-    "express": "~4.10.4",
     "marked": "~0.3.2",
     "gulp-compass": "~2.0.3",
     "browserify": "^3.41.0",

@@ -14,11 +14,17 @@
         },
         link: function(scope, element, attr) {
           scope.getNameOption = function(name, url, index) {
-            var i, _i, _ref;
+            var i, _i, _j, _len, _ref, _ref1, _results;
             scope.dmkNameOption = name;
             scope.dmkUrl = url;
-            for (i = _i = 0, _ref = scope.dmkOptions.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
-              if (scope.dmkOptions[i].isActive === true || scope.dmkOptions[i].name !== name) {
+            _ref1 = (function() {
+              _results = [];
+              for (var _j = 0, _ref = scope.dmkOptions.length; 0 <= _ref ? _j < _ref : _j > _ref; 0 <= _ref ? _j++ : _j--){ _results.push(_j); }
+              return _results;
+            }).apply(this) || scope.dmkOptions[i].isActive === true;
+            for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+              i = _ref1[_i];
+              if (scope.dmkOptions[i].name !== name) {
                 scope.dmkOptions[i].isActive = false;
               }
             }

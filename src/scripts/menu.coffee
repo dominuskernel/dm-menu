@@ -18,9 +18,9 @@ do ->
           scope.dmkNameOption = name
           scope.dmkUrl = url
 
-          for i in [0...scope.dmkOptions.length]
-            if scope.dmkOptions[i].isActive == true or
-            scope.dmkOptions[i].name != name
+          for i in [0...scope.dmkOptions.length] or
+          scope.dmkOptions[i].isActive == true
+            if scope.dmkOptions[i].name != name
               scope.dmkOptions[i].isActive = false
 
           if scope.dmkOptions[index].isActive == true

@@ -4,21 +4,84 @@ html(ng-app="app")
     body(ng-controller='LoadDataMenu')
         h1 dmk-menu
         h3 Horizontal menu
-        div(dmk-menu dmk-type="horizontal" dmk-options="dmkOptions" dmk-name-option="optionName" dmk-is-portable-device="isPortableDevice")
-
-        p(style="margin: 50px") Scope: {{optionName}}
-
-        pre.
-            div(dmk-menu, dmk-type="horizontal" dmk-options = "dmkOptions" dmk-name-option="optionName")
+        div(ng-if="isPortableDevice == true")
+            span this example only is shown in descktop
+        div(ng-if="isPortableDevice == false")
+            div(dmk-icon="iconDropdown"
+                dmk-menu dmk-type="horizontal"
+                dmk-options="dmkOptions"
+                dmk-name-option="optionName"
+                dmk-url="urlOption")
             p(style="margin: 50px") Scope: {{optionName}}
+            p(style="margin: 50px") Scope: {{urlOption}}
+
+            pre.
+                div(ng-if="isPortableDevice == true")
+                    span this example only is shown in descktop
+                div(ng-if="isPortableDevice == false")
+                    div(dmk-icon="iconDropdown"
+                        dmk-menu dmk-type="horizontal"
+                        dmk-options="dmkOptions"
+                        dmk-name-option="optionName"
+                        dmk-url="urlOption")
+                    p(style="margin: 50px") Scope: {{optionName}}
+                    p(style="margin: 50px") Scope: {{urlOption}}
 
         h3 Vertical menu
-        div(dmk-menu dmk-type="vertical" dmk-options = "dmkOptions" dmk-name-option="optionName" dmk-is-portable-device="isPortableDevice")
-        p(style="margin: 50px") Scope: {{optionName}}
-        p {{whatDevice}}
+        div(ng-if="isPortableDevice == true")
+            span this example only is shown in descktop
+        div(ng-if="isPortableDevice == false")
+            div(dmk-icon="iconDropdown"
+                dmk-menu dmk-type="vertical"
+                dmk-options="dmkOptions"
+                dmk-name-option="optionName"
+                dmk-url="urlOption")
+            p(style="margin: 50px") Scope: {{optionName}}
+            p(style="margin: 50px") Scope: {{urlOption}}
+            pre.
+                div(ng-if="isPortableDevice == true")
+                    span this example only is shown in descktop
+                div(ng-if="isPortableDevice == false")
+                    div(dmk-icon="iconDropdown"
+                        dmk-menu dmk-type="vertical"
+                        dmk-options="dmkOptions"
+                        dmk-name-option="optionName"
+                        dmk-url="urlOption")
+                    p(style="margin: 50px") Scope: {{optionName}}
+                    p(style="margin: 50px") Scope: {{urlOption}}
+
+        h3 Mobile menu
+        div(ng-if="isPortableDevice == false")
+            span This example only is shown in tablets or mobiles
+        div(ng-if="isPortableDevice == true")
+            md-button.md-primary(ng-click="toggleLeft()")
+                span Menu
+            md-sidenav.md-sidenav-left(md-component-id="left")
+                md-content(layout-padding)
+                    div(dmk-icon="iconDropdown"
+                        dmk-menu dmk-type="mobile"
+                        dmk-options="dmkOptions"
+                        dmk-name-option="optionName"
+                        dmk-url="urlOption")
+                    p(style="margin: 50px") Scope: {{optionName}}
+                    p(style="margin: 50px") Scope: {{urlOption}}
+
         pre.
-            div(dmk-menu, dmk-type="vertical" dmk-options = "dmkOptions" dmk-name-option="optionName")
-            p(style="margin: 80px") Scope: {{optionName}}
+            div(ng-if="isPortableDevice == false")
+            span This example only is shown in tablets or mobiles
+            div(ng-if="isPortableDevice == true")
+                md-button.md-primary(ng-click="toggleLeft()")
+                    span Menu
+                md-sidenav.md-sidenav-left(md-component-id="left")
+                    md-content(layout-padding)
+                        div(dmk-icon="iconDropdown"
+                            dmk-menu dmk-type="mobile"
+                            dmk-options="dmkOptions"
+                            dmk-name-option="optionName"
+                            dmk-url="urlOption")
+                        p(style="margin: 50px") Scope: {{optionName}}
+                        p(style="margin: 50px") Scope: {{urlOption}}
+
 
         include ./includes/scripts
 

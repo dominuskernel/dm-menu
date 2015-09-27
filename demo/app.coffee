@@ -1,9 +1,10 @@
 do ->
   'use strict'
 
-  LoadDataMenu = ($scope, $http, deviceDetector) ->
+  LoadDataMenu = ($scope, $http, deviceDetector, $mdSidenav, $mdUtil) ->
     $scope.nameOption = ""
-    $scope.whatDevice = deviceDetector.raw.device
+    $scope.urlOption = ""
+    $scope.iconDropdown = "drop-down"
     $http.get('mocks/menu.json').success((data)->
       $scope.dmkOptions = data
       return
@@ -18,12 +19,19 @@ do ->
         $scope.isPortableDevice = true
     else
       $scope.isPortableDevice = false
+    $scope.toggleLeft = ()->
+      $mdSidenav('left')
+      .toggle()
+    $scope.close = () ->
+      $mdSidenav('left')
+      .close()
     return
 
   angular
-    .module('app',['dmk.menu','ng.deviceDetector'])
+    .module('app',['dmk.menu','ng.deviceDetector','ngMaterial'])
     .controller('LoadDataMenu', LoadDataMenu)
 
-  LoadDataMenu.$inject = ['$scope','$http', 'deviceDetector']
+  LoadDataMenu.$inject = ['$scope','$http', 'deviceDetector',
+                          '$mdSidenav', '$mdUtil']
 
   return

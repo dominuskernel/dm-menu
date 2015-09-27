@@ -1,9 +1,10 @@
 (function() {
   'use strict';
   var LoadDataMenu;
-  LoadDataMenu = function($scope, $http, deviceDetector) {
+  LoadDataMenu = function($scope, $http, deviceDetector, $mdSidenav, $mdUtil) {
     $scope.nameOption = "";
-    $scope.whatDevice = deviceDetector.raw.device;
+    $scope.urlOption = "";
+    $scope.iconDropdown = "drop-down";
     $http.get('mocks/menu.json').success(function(data) {
       $scope.dmkOptions = data;
     });
@@ -12,7 +13,13 @@
     } else {
       $scope.isPortableDevice = false;
     }
+    $scope.toggleLeft = function() {
+      return $mdSidenav('left').toggle();
+    };
+    $scope.close = function() {
+      return $mdSidenav('left').close();
+    };
   };
-  angular.module('app', ['dmk.menu', 'ng.deviceDetector']).controller('LoadDataMenu', LoadDataMenu);
-  LoadDataMenu.$inject = ['$scope', '$http', 'deviceDetector'];
+  angular.module('app', ['dmk.menu', 'ng.deviceDetector', 'ngMaterial']).controller('LoadDataMenu', LoadDataMenu);
+  LoadDataMenu.$inject = ['$scope', '$http', 'deviceDetector', '$mdSidenav', '$mdUtil'];
 })();

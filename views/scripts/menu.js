@@ -6,20 +6,20 @@
         restrict: 'A',
         templateUrl: '../templates/dmk-menu.html',
         scope: {
+          dmkIcon: "=",
           dmkOptions: "=",
           dmkNameOption: "=",
-          dmkIsPortableDevice: "=",
+          dmkUrl: "=",
           dmkType: "@"
         },
-        link: function(scope) {
-          scope.getNameOption = function(name, index) {
+        link: function(scope, element, attr) {
+          scope.getNameOption = function(name, url, index) {
             var i, _i, _ref;
             scope.dmkNameOption = name;
+            scope.dmkUrl = url;
             for (i = _i = 0, _ref = scope.dmkOptions.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
-              if (scope.dmkOptions[i].isActive === true) {
-                if (scope.dmkOptions[i].name !== name) {
-                  scope.dmkOptions[i].isActive = false;
-                }
+              if (scope.dmkOptions[i].isActive === true || scope.dmkOptions[i].name !== name) {
+                scope.dmkOptions[i].isActive = false;
               }
             }
             if (scope.dmkOptions[index].isActive === true) {
@@ -28,14 +28,19 @@
               return scope.dmkOptions[index].isActive = true;
             }
           };
-          scope.getNameDropdown = function(name, parentIndex, index) {
-            var i, _i, _ref;
+          scope.getNameDropdown = function(name, url, parentIndex, index) {
+            var i, _i, _j, _len, _ref, _ref1, _results;
             scope.dmkNameOption = name;
-            for (i = _i = 0, _ref = scope.dmkOptions[parentIndex].dropdowns.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
-              if (scope.dmkOptions[parentIndex].dropdowns[i].isActive === true) {
-                if (scope.dmkOptions[parentIndex].dropdowns[i].name !== name) {
-                  scope.dmkOptions[parentIndex].dropdowns[i].isActive = false;
-                }
+            scope.dmkUrl = url;
+            _ref1 = (function() {
+              _results = [];
+              for (var _j = 0, _ref = scope.dmkOptions[parentIndex].dropdowns.length; 0 <= _ref ? _j < _ref : _j > _ref; 0 <= _ref ? _j++ : _j--){ _results.push(_j); }
+              return _results;
+            }).apply(this) || scope.dmkOptions[parentIndex].dropdowns[i].isActive === true;
+            for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+              i = _ref1[_i];
+              if (scope.dmkOptions[parentIndex].dropdowns[i].name !== name) {
+                scope.dmkOptions[parentIndex].dropdowns[i].isActive = false;
               }
             }
             if (scope.dmkOptions[parentIndex].dropdowns[index].isActive === true) {
@@ -44,8 +49,9 @@
               return scope.dmkOptions[parentIndex].dropdowns[index].isActive = true;
             }
           };
-          scope.getNameSuboption = function(name) {
-            return scope.dmkNameOption = name;
+          scope.getNameSuboption = function(name, url) {
+            scope.dmkNameOption = name;
+            return scope.dmkUrl = url;
           };
         }
       };

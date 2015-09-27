@@ -1,17 +1,16 @@
 
 <div class="dmk-menu">
-  <div ng-if="dmkIsPortableDevice == false" class="menu-container-{{dmkType}}">
+  <div class="menu-container-{{dmkType}}">
     <ul>
-      <li ng-repeat="option in dmkOptions track by $index" ng-click="getNameOption(option.name, $index)" class="option-nav-{{$index + 1}}">{{option.name}}
+      <li ng-repeat="option in dmkOptions track by $index" ng-click="getNameOption(option.name, option.url, $index)" class="option-nav-{{$index + 1}}"><span class="text">{{option.name}}</span><span ng-if="option.dropdowns != undefined" class="{{dmkIcon}}"></span>
         <ul ng-if="option.isActive == true" class="dropdown-container">
-          <li ng-repeat="dropdown in option.dropdowns track by $index" ng-click="getNameDropdown(dropdown.name, $parent.$index, $index); $event.stopPropagation()" class="dropdown-nav-{{$index + 1}}">{{dropdown.name}}
+          <li ng-repeat="dropdown in option.dropdowns track by $index" ng-click="getNameDropdown(dropdown.name, dropdown.url, $parent.$index, $index); $event.stopPropagation()" class="dropdown-nav-{{$index + 1}}"><span class="text">{{dropdown.name}}</span><span ng-if="dropdown.subOptions != undefined" class="{{dmkIcon}}"></span>
             <ul ng-if="dropdown.isActive == true" class="submenu-container">
-              <li ng-repeat="suboption in dropdown.subOptions" ng-click="getNameSuboption(suboption.name); $event.stopPropagation()" class="suboption-nav-{{$index + 1}}">{{suboption.name}}</li>
+              <li ng-repeat="suboption in dropdown.subOptions" ng-click="getNameSuboption(suboption.name, suboption.url); $event.stopPropagation()" class="suboption-nav-{{$index + 1}}"><span class="text">{{suboption.name}}</span></li>
             </ul>
           </li>
         </ul>
       </li>
     </ul>
   </div>
-  <div ng-if="dmkIsPortableDevice == true"><span>hola</span></div>
 </div>

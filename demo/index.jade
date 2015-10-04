@@ -10,6 +10,8 @@ html(ng-app="app")
             div(dmk-icon="iconDropdown"
                 dmk-menu dmk-type="horizontal"
                 dmk-options="dmkOptions"
+                dmk-search-first="search1"
+                dmk-search-second="search2"
                 dmk-name-option="optionName"
                 dmk-url="urlOption")
             p(style="margin: 50px") Scope: {{optionName}}
@@ -22,6 +24,8 @@ html(ng-app="app")
                     div(dmk-icon="iconDropdown"
                         dmk-menu dmk-type="horizontal"
                         dmk-options="dmkOptions"
+                        dmk-search-first="search1"
+                        dmk-search-second="search2"
                         dmk-name-option="optionName"
                         dmk-url="urlOption")
                     p(style="margin: 50px") Scope: {{optionName}}
@@ -33,22 +37,22 @@ html(ng-app="app")
         div(ng-if="isPortableDevice == false")
             div(dmk-icon="iconDropdown"
                 dmk-menu dmk-type="vertical"
+                dmk-search-first="search1"
                 dmk-options="dmkOptions"
                 dmk-name-option="optionName"
                 dmk-url="urlOption")
             p(style="margin: 50px") Scope: {{optionName}}
             p(style="margin: 50px") Scope: {{urlOption}}
             pre.
-                div(ng-if="isPortableDevice == true")
-                    span this example only is shown in descktop
                 div(ng-if="isPortableDevice == false")
                     div(dmk-icon="iconDropdown"
-                        dmk-menu dmk-type="vertical"
-                        dmk-options="dmkOptions"
-                        dmk-name-option="optionName"
-                        dmk-url="urlOption")
-                    p(style="margin: 50px") Scope: {{optionName}}
-                    p(style="margin: 50px") Scope: {{urlOption}}
+                    dmk-menu dmk-type="vertical"
+                    dmk-search-first="search1"
+                    dmk-options="dmkOptions"
+                    dmk-name-option="optionName"
+                    dmk-url="urlOption")
+                p(style="margin: 50px") Scope: {{optionName}}
+                p(style="margin: 50px") Scope: {{urlOption}}
 
         h3 Mobile menu
         div(ng-if="isPortableDevice == false")
@@ -81,6 +85,49 @@ html(ng-app="app")
                             dmk-url="urlOption")
                         p(style="margin: 50px") Scope: {{optionName}}
                         p(style="margin: 50px") Scope: {{urlOption}}
+
+        h3 Coffescript Controller
+        pre.
+            do ->
+                'use strict'
+
+                LoadDataMenu = ($scope, $http, deviceDetector, $mdSidenav, $mdUtil) ->
+                    $scope.nameOption = ""
+                    $scope.urlOption = ""
+                    $scope.iconDropdown = "drop-down"
+                    $scope.search1 = true
+                    $scope.search2 = true
+                    $http.get('mocks/menu.json').success((data)->
+                    $scope.dmkOptions = data
+                        return
+                    )
+                    if deviceDetector.raw.device.android or
+                        deviceDetector.raw.device.ipad or
+                        deviceDetector.raw.device.iphone or
+                        deviceDetector.raw.device.ipod or
+                        deviceDetector.raw.device.blackberry or
+                        deviceDetector.raw.device.firefoxOs or
+                        deviceDetector.raw.device.windowsPhone
+                        $scope.isPortableDevice = true
+                    else
+                    $scope.isPortableDevice = false
+                    $scope.toggleLeft = ()->
+                    $mdSidenav('left')
+                        .toggle()
+                    $scope.close = () ->
+                    $mdSidenav('left')
+                        .close()
+                    return
+
+                angular
+                    .module('app',['dmk.menu','ng.deviceDetector','ngMaterial'])
+                    .controller('LoadDataMenu', LoadDataMenu)
+
+                LoadDataMenu.$inject = ['$scope','$http', 'deviceDetector',
+                '$mdSidenav', '$mdUtil']
+
+                return
+
 
 
         include ./includes/scripts

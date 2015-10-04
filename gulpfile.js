@@ -100,7 +100,8 @@ gulp.task('build', ['coffee', 'compass', 'demo', 'jade']);
 gulp.task('server', function (callback) {
   runSequence('build','browser-sync');
   gulp.watch('src/scripts/*.coffee',['coffee', reload]);
-  gulp.watch('src/stylesheets/*.sass',['compass', reload]);
+  gulp.watch('src/stylesheets/*.sass',['compass', reload])
+  gulp.watch('src/stylesheets/*.sass',['demo', reload]);
   gulp.watch('demo/**/*.*', ['demo', reload]);
   gulp.watch('src/jade/*.jade', ['jade', reload]);
 });

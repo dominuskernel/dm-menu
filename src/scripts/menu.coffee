@@ -10,16 +10,22 @@ do ->
         dmkIcon: "="
         dmkOptions: "="
         dmkNameOption: "="
+        dmkSearchFirst:"="
+        dmkSearchSecond:"="
         dmkUrl: "="
         dmkType: "@"
 
       link: (scope, element, attr) ->
+        if scope.dmkSearchFirst == ""
+          scope.dmkSearchFirst = false
+        if scope.dmkSearchSecond == ""
+          scope.dmkSearchSecond = false
+
         scope.getNameOption = (name, url, index)->
           scope.dmkNameOption = name
           scope.dmkUrl = url
 
-          for i in [0...scope.dmkOptions.length] or
-          scope.dmkOptions[i].isActive == true
+          for i in [0...scope.dmkOptions.length]
             if scope.dmkOptions[i].name != name
               scope.dmkOptions[i].isActive = false
 
@@ -31,8 +37,7 @@ do ->
         scope.getNameDropdown = (name, url, parentIndex, index) ->
           scope.dmkNameOption = name
           scope.dmkUrl = url
-          for i in [0...scope.dmkOptions[parentIndex].dropdowns.length] or
-          scope.dmkOptions[parentIndex].dropdowns[i].isActive == true
+          for i in [0...scope.dmkOptions[parentIndex].dropdowns.length]
             if scope.dmkOptions[parentIndex].dropdowns[i].name != name
               scope.dmkOptions[parentIndex].dropdowns[i].isActive = false
 

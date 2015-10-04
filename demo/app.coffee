@@ -5,6 +5,8 @@ do ->
     $scope.nameOption = ""
     $scope.urlOption = ""
     $scope.iconDropdown = "drop-down"
+    $scope.search1 = true
+    $scope.search2 = true
     $http.get('mocks/menu.json').success((data)->
       $scope.dmkOptions = data
       return

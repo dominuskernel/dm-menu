@@ -15,7 +15,7 @@ var gulp            = require('gulp'),
 gulp.task('browser-sync', function() {
   browserSync({
     server: {
-      baseDir: "./views"
+      baseDir: "./"
     }
   });
 });
@@ -26,13 +26,9 @@ gulp.task('coffee', function() {
         .pipe(coffeelint())
         .pipe(coffeelint.reporter())
         .pipe($.coffee({bare: true}).on('error', $.util.log))
-        .pipe(gulp.dest('views/scripts'))
+        .pipe(gulp.dest('./scripts'))
         .pipe(browserSync.reload({stream: true}))
         .pipe($.livereload( server ));
-});
-
-gulp.task('clean-views', function(){
-    return del(['views/**/*']);
 });
 
 gulp.task('compass', function() {
@@ -40,19 +36,11 @@ gulp.task('compass', function() {
     .pipe($.plumber())
     .pipe(browserSync.reload({stream: true}))
     .pipe($.compass({
-      css: 'views/stylesheets',
+      css: './stylesheets',
       sass: 'src/stylesheets'
     }))
-    .pipe(gulp.dest('views/stylesheets'))
+    .pipe(gulp.dest('./stylesheets'))
     .pipe($.livereload( server ));;
-});
-
-gulp.task('components', function(){
-    return gulp.src('bower_components/**/*.*')
-        .pipe($.plumber())
-        .pipe(gulp.dest('views/bower_components'))
-        .pipe(browserSync.reload({stream: true}))
-        .pipe($.livereload( server ));
 });
 
 gulp.task('demo', function() {
@@ -61,15 +49,15 @@ gulp.task('demo', function() {
       .pipe($.jade({
           pretty: true
       }))
-      .pipe(gulp.dest('views'))
+      .pipe(gulp.dest('./'))
       .pipe(browserSync.reload({stream: true}));
   var sassDemo = gulp.src('demo/main.sass')
       .pipe($.plumber())
       .pipe($.compass({
-          css: 'views',
+          css: './',
           sass: 'demo'
       }))
-      .pipe(gulp.dest('views'))
+      .pipe(gulp.dest('./'))
       .pipe(browserSync.reload({stream: true}))
       .pipe( $.livereload( server ) );
   var coffeeDemo = gulp.src('demo/app.coffee')
@@ -77,12 +65,12 @@ gulp.task('demo', function() {
       .pipe(coffeelint())
       .pipe(coffeelint.reporter())
       .pipe($.coffee({bare: true}).on('error', $.util.log))
-      .pipe(gulp.dest('views'))
+      .pipe(gulp.dest('./'))
       .pipe(browserSync.reload({stream: true}))
       .pipe( $.livereload( server ) );
   var mocksDemo = gulp.src('demo/mocks/*.json')
       .pipe($.plumber())
-      .pipe(gulp.dest('views/mocks'))
+      .pipe(gulp.dest('./mocks'))
       .pipe(browserSync.reload({stream: true}))
       .pipe( $.livereload( server ) );
   return merge(jadeDemo, sassDemo, coffeeDemo, mocksDemo)
@@ -90,25 +78,30 @@ gulp.task('demo', function() {
 });
 
 gulp.task('jade', function () {
-  return gulp.src('src/jade/*.jade')
+  var testJade = gulp.src('src/jade/*.jade')
     .pipe($.plumber())
     .pipe($.jade({
       pretty: true
-    })).pipe( gulp.dest('views/templates'))
+    })).pipe( gulp.dest('./bower_components/dmk-menu/templates/'))
     .pipe(browserSync.reload({stream: true}))
     .pipe( $.livereload( server ) );
+  var jadeComponent = gulp.src('src/jade/*.jade')
+      .pipe($.plumber())
+      .pipe($.jade({
+          pretty: true
+      })).pipe( gulp.dest('templates/'))
+      .pipe(browserSync.reload({stream: true}))
+      .pipe( $.livereload( server ) );
+  return merge(testJade, jadeComponent)
 });
 
-gulp.task('build', ['coffee', 'compass', 'components', 'demo', 'jade']);
+gulp.task('build', ['coffee', 'compass', 'demo', 'jade']);
 
 gulp.task('server', function (callback) {
-  runSequence('clean-views','build','browser-sync');
+  runSequence('build','browser-sync');
   gulp.watch('src/scripts/*.coffee',['coffee', reload]);
   gulp.watch('src/stylesheets/*.sass',['compass', reload]);
-  gulp.watch('src/bower_components/**/*.*',['components', reload]);
-  gulp.watch('demo/index.jade', ['demo', reload]);
-  gulp.watch('demo/main.sass', ['demo', reload]);
-  gulp.watch('demo/app.coffee', ['demo', reload]);
+  gulp.watch('demo/**/*.*', ['demo', reload]);
   gulp.watch('src/jade/*.jade', ['jade', reload]);
 });
 

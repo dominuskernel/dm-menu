@@ -4,7 +4,7 @@ do ->
     .module('dmk.menu', [])
     .directive('dmkMenu', [ ->
       restrict: 'A'
-      templateUrl: '../templates/dmk-menu.html'
+      templateUrl: '/bower_components/dmk-menu/templates/dmk-menu.html'
 
       scope:
         dmkIcon: "="

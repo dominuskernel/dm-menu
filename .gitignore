@@ -8,4 +8,4 @@ templates/
 index.html
 app.js
 main.css
-.sass-cache
+.sass-cache/

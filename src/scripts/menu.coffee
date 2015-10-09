@@ -57,8 +57,13 @@ do ->
         scope.getNameSubOption = (name, url, parentIndex, index) ->
           scope.dmkNameOption = name
           scope.dmkUrl = url
-          scope.dmkOptions[scope.dmkMainMenu].dropdowns[parentIndex].subOptions[index].isActive = false
-          scope.dmkOptions[scope.dmkMainMenu].dropdowns[parentIndex].isActive = false
+          scope.dmkOptions[scope.dmkMainMenu]
+            .dropdowns[parentIndex]
+            .subOptions[index]
+            .isActive = false
+          scope.dmkOptions[scope.dmkMainMenu]
+            .dropdowns[parentIndex]
+            .isActive = false
           scope.dmkOptions[scope.dmkMainMenu].isActive = false
 
         return

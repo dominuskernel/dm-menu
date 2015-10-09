@@ -9,6 +9,7 @@ do ->
       scope:
         dmkIcon: "="
         dmkOptions: "="
+        dmkMainMenu: "="
         dmkNameOption: "="
         dmkSearchFirst:"="
         dmkSearchSecond:"="
@@ -21,34 +22,44 @@ do ->
         if scope.dmkSearchSecond == ""
           scope.dmkSearchSecond = false
 
-        scope.getNameOption = (name, url, index)->
+        scope.getNameOption = (name, url, hasSubMenu, index)->
           scope.dmkNameOption = name
           scope.dmkUrl = url
+          scope.dmkMainMenu = index
 
-          for i in [0...scope.dmkOptions.length]
-            if scope.dmkOptions[i].name != name
+          if hasSubMenu
+            for i in [0...scope.dmkOptions.length]
+              if scope.dmkOptions[i].name != name
+                scope.dmkOptions[i].isActive = false
+            if scope.dmkOptions[index].isActive == true
+              scope.dmkOptions[index].isActive = false
+            else
+              scope.dmkOptions[index].isActive = true
+          else
+            for i in [0...scope.dmkOptions.length]
               scope.dmkOptions[i].isActive = false
 
-          if scope.dmkOptions[index].isActive == true
-            scope.dmkOptions[index].isActive = false
-          else
-            scope.dmkOptions[index].isActive = true
-
-        scope.getNameDropdown = (name, url, parentIndex, index) ->
+        scope.getNameDropdown = (name, url, hasSubMenu, parentIndex, index) ->
           scope.dmkNameOption = name
           scope.dmkUrl = url
-          for i in [0...scope.dmkOptions[parentIndex].dropdowns.length]
-            if scope.dmkOptions[parentIndex].dropdowns[i].name != name
-              scope.dmkOptions[parentIndex].dropdowns[i].isActive = false
-
-          if scope.dmkOptions[parentIndex].dropdowns[index].isActive == true
+          if hasSubMenu
+            for i in [0...scope.dmkOptions[parentIndex].dropdowns.length]
+              if scope.dmkOptions[parentIndex].dropdowns[i].name != name
+                scope.dmkOptions[parentIndex].dropdowns[i].isActive = false
+            if scope.dmkOptions[parentIndex].dropdowns[index].isActive == true
+              scope.dmkOptions[parentIndex].dropdowns[index].isActive = false
+            else
+              scope.dmkOptions[parentIndex].dropdowns[index].isActive = true
+          else
             scope.dmkOptions[parentIndex].dropdowns[index].isActive = false
-          else
-            scope.dmkOptions[parentIndex].dropdowns[index].isActive = true
+            scope.dmkOptions[parentIndex].isActive = false
 
-        scope.getNameSuboption = (name, url) ->
+        scope.getNameSubOption = (name, url, parentIndex, index) ->
           scope.dmkNameOption = name
           scope.dmkUrl = url
+          scope.dmkOptions[scope.dmkMainMenu].dropdowns[parentIndex].subOptions[index].isActive = false
+          scope.dmkOptions[scope.dmkMainMenu].dropdowns[parentIndex].isActive = false
+          scope.dmkOptions[scope.dmkMainMenu].isActive = false
 
         return
   ])

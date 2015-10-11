@@ -92,15 +92,32 @@ html(ng-app="app")
                 'use strict'
 
                 LoadDataMenu = ($scope, $http, deviceDetector, $mdSidenav, $mdUtil) ->
-                    $scope.nameOption = ""
+                    $scope.optionName = ""
                     $scope.urlOption = ""
                     $scope.iconDropdown = "drop-down"
                     $scope.search1 = true
                     $scope.search2 = true
+
+                    $scope.$on('option',(event, name)->
+                        $scope.optionName = name
+                        console.log($scope.optionName)
+                    )
+
+                    $scope.$on('dropDown',(event, name)->
+                        $scope.optionName = name
+                        console.log($scope.optionName)
+                    )
+
+                    $scope.$on('subOption',(event, name)->
+                        $scope.optionName = name
+                        console.log($scope.optionName)
+                    )
+
                     $http.get('mocks/menu.json').success((data)->
-                    $scope.dmkOptions = data
+                        $scope.dmkOptions = data
                         return
                     )
+
                     if deviceDetector.raw.device.android or
                         deviceDetector.raw.device.ipad or
                         deviceDetector.raw.device.iphone or
@@ -110,13 +127,13 @@ html(ng-app="app")
                         deviceDetector.raw.device.windowsPhone
                         $scope.isPortableDevice = true
                     else
-                    $scope.isPortableDevice = false
-                    $scope.toggleLeft = ()->
-                    $mdSidenav('left')
-                        .toggle()
-                    $scope.close = () ->
-                    $mdSidenav('left')
-                        .close()
+                        $scope.isPortableDevice = false
+                        $scope.toggleLeft = ()->
+                            $mdSidenav('left')
+                            .toggle()
+                        $scope.close = () ->
+                            $mdSidenav('left')
+                            .close()
                     return
 
                 angular

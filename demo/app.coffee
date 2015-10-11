@@ -2,11 +2,33 @@ do ->
   'use strict'
 
   LoadDataMenu = ($scope, $http, deviceDetector, $mdSidenav, $mdUtil) ->
-    $scope.nameOption = ""
+    $scope.optionName = ""
     $scope.urlOption = ""
     $scope.iconDropdown = "drop-down"
     $scope.search1 = true
     $scope.search2 = true
+
+    $scope.$on('option',(event, name, url)->
+      $scope.optionName = name
+      $scope.urlOption = url
+      console.log($scope.optionName)
+      console.log($scope.urlOption)
+    )
+
+    $scope.$on('dropDown',(event, name, url)->
+      $scope.optionName = name
+      $scope.urlOption = url
+      console.log($scope.optionName)
+      console.log($scope.urlOption)
+    )
+
+    $scope.$on('subOption',(event, name, url)->
+      $scope.optionName = name
+      $scope.urlOption = url
+      console.log($scope.optionName)
+      console.log($scope.urlOption)
+    )
+
     $http.get('mocks/menu.json').success((data)->
       $scope.dmkOptions = data
       return
@@ -24,9 +46,11 @@ do ->
     $scope.toggleLeft = ()->
       $mdSidenav('left')
       .toggle()
+      return
     $scope.close = () ->
       $mdSidenav('left')
       .close()
+      return
     return
 
   angular

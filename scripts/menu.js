@@ -23,7 +23,7 @@
             scope.dmkSearchSecond = false;
           }
           scope.getNameOption = function(name, url, hasSubMenu, index) {
-            var i, _i, _j, _ref, _ref1, _results;
+            var i, _i, _j, _ref, _ref1;
             scope.dmkNameOption = name;
             scope.dmkUrl = url;
             scope.dmkMainMenu = index;
@@ -34,17 +34,16 @@
                 }
               }
               if (scope.dmkOptions[index].isActive === true) {
-                return scope.dmkOptions[index].isActive = false;
+                scope.dmkOptions[index].isActive = false;
               } else {
-                return scope.dmkOptions[index].isActive = true;
+                scope.dmkOptions[index].isActive = true;
               }
             } else {
-              _results = [];
               for (i = _j = 0, _ref1 = scope.dmkOptions.length; 0 <= _ref1 ? _j < _ref1 : _j > _ref1; i = 0 <= _ref1 ? ++_j : --_j) {
-                _results.push(scope.dmkOptions[i].isActive = false);
+                scope.dmkOptions[i].isActive = false;
               }
-              return _results;
             }
+            return scope.$emit('option', name, url);
           };
           scope.getNameDropdown = function(name, url, hasSubMenu, parentIndex, index) {
             var i, _i, _ref;
@@ -57,21 +56,23 @@
                 }
               }
               if (scope.dmkOptions[parentIndex].dropdowns[index].isActive === true) {
-                return scope.dmkOptions[parentIndex].dropdowns[index].isActive = false;
+                scope.dmkOptions[parentIndex].dropdowns[index].isActive = false;
               } else {
-                return scope.dmkOptions[parentIndex].dropdowns[index].isActive = true;
+                scope.dmkOptions[parentIndex].dropdowns[index].isActive = true;
               }
             } else {
               scope.dmkOptions[parentIndex].dropdowns[index].isActive = false;
-              return scope.dmkOptions[parentIndex].isActive = false;
+              scope.dmkOptions[parentIndex].isActive = false;
             }
+            return scope.$emit('dropDown', name, url);
           };
           scope.getNameSubOption = function(name, url, parentIndex, index) {
             scope.dmkNameOption = name;
             scope.dmkUrl = url;
             scope.dmkOptions[scope.dmkMainMenu].dropdowns[parentIndex].subOptions[index].isActive = false;
             scope.dmkOptions[scope.dmkMainMenu].dropdowns[parentIndex].isActive = false;
-            return scope.dmkOptions[scope.dmkMainMenu].isActive = false;
+            scope.dmkOptions[scope.dmkMainMenu].isActive = false;
+            return scope.$emit('subOption', name, url);
           };
         }
       };

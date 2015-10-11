@@ -39,6 +39,8 @@ do ->
             for i in [0...scope.dmkOptions.length]
               scope.dmkOptions[i].isActive = false
 
+          scope.$emit('option', name, url)
+
         scope.getNameDropdown = (name, url, hasSubMenu, parentIndex, index) ->
           scope.dmkNameOption = name
           scope.dmkUrl = url
@@ -53,6 +55,7 @@ do ->
           else
             scope.dmkOptions[parentIndex].dropdowns[index].isActive = false
             scope.dmkOptions[parentIndex].isActive = false
+          scope.$emit('dropDown', name, url)
 
         scope.getNameSubOption = (name, url, parentIndex, index) ->
           scope.dmkNameOption = name
@@ -65,7 +68,7 @@ do ->
             .dropdowns[parentIndex]
             .isActive = false
           scope.dmkOptions[scope.dmkMainMenu].isActive = false
-
+          scope.$emit('subOption', name, url)
         return
   ])
   return

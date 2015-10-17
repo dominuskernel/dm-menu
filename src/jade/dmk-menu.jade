@@ -6,7 +6,8 @@
                 class="option-nav-{{$index + 1}}"
                 ng-class="{'active':option.isActive == true}")
                 span.text {{option.name}}
-                span(ng-if="option.dropdowns != undefined" class="{{dmkIcon}}")
+                span(ng-if="option.dropdowns != undefined && dmkType=='vertical'" class="{{dmkIcon}} glyphicon glyphicon-chevron-right")
+                span(ng-if="option.dropdowns != undefined && dmkType!='vertical'" class="{{dmkIcon}} glyphicon glyphicon-chevron-bottom")
                 ul.dropdown-container(ng-if="option.isActive == true && option.dropdowns")
                     li.search(ng-if="dmkSearchFirst == true"
                        ng-click="$event.stopPropagation()")
@@ -16,8 +17,8 @@
                         class="dropdown-nav-{{$index + 1}}"
                         ng-class="{'active':dropdown.isActive == true}")
                         span.text {{dropdown.name}}
-                        span(ng-if="dropdown.subOptions && dmkType=='horizontal'" class="{{dmkIcon}} glyphicon glyphicon-chevron-right")
-                        span(ng-if="dropdown.subOptions && dmkType!='horizontal'" class="{{dmkIcon}} glyphicon glyphicon-triangle-bottom")
+                        span(ng-if="dropdown.subOptions && dmkType=='vertical' || dmkType=='horizontal'" class="{{dmkIcon}} glyphicon glyphicon-chevron-right")
+                        span(ng-if="dropdown.subOptions && dmkType=='mobile'" class="{{dmkIcon}} glyphicon glyphicon-triangle-bottom")
                         .submenu-container(ng-if="dropdown.isActive == true && dropdown.subOptions")
                             ul.submenu-list
                                 li.search(ng-if="dmkSearchSecond == true"

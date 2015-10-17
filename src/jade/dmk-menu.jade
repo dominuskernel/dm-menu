@@ -18,12 +18,13 @@
                         span.text {{dropdown.name}}
                         span(ng-if="dropdown.subOptions && dmkType=='horizontal'" class="{{dmkIcon}} glyphicon glyphicon-chevron-right")
                         span(ng-if="dropdown.subOptions && dmkType!='horizontal'" class="{{dmkIcon}} glyphicon glyphicon-triangle-bottom")
-                        ul.submenu-container(ng-if="dropdown.isActive == true && dropdown.subOptions")
-                            li.search(ng-if="dmkSearchSecond == true"
-                            ng-click="$event.stopPropagation()")
-                                input.search-input(ng-model="$parent.search2.name")
-                            li(ng-repeat="suboption in dropdown.subOptions | filter: search2 track by $index"
-                                ng-click="getNameSubOption(suboption.name, suboption.url, $parent.$index, $index); $event.stopPropagation()"
-                                class = "suboption-nav-{{$index + 1}}")
-                                span.text {{suboption.name}}
+                        .submenu-container(ng-if="dropdown.isActive == true && dropdown.subOptions")
+                            ul.submenu-list
+                                li.search(ng-if="dmkSearchSecond == true"
+                                ng-click="$event.stopPropagation()")
+                                    input.search-input(ng-model="$parent.search2.name")
+                                li(ng-repeat="suboption in dropdown.subOptions | filter: search2 track by $index"
+                                    ng-click="getNameSubOption(suboption.name, suboption.url, $parent.$index, $index); $event.stopPropagation()"
+                                    class = "suboption-nav-{{$index + 1}}")
+                                    span.text {{suboption.name}}
 

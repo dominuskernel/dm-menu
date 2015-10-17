@@ -15,7 +15,7 @@
           dmkUrl: "=",
           dmkType: "@"
         },
-        link: function(scope, element, attr) {
+        link: function(scope, element, attrs) {
           if (scope.dmkSearchFirst === "") {
             scope.dmkSearchFirst = false;
           }

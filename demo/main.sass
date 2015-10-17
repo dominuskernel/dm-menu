@@ -1,7 +1,17 @@
 @import '../src/stylesheets/dmk-menu'
 
+@mixin transition($element, $time, $option)
+  -webkit-transition: $element $time $option
+  -moz-transition: $element $time $option
+  -o-transition: $element $time $option
+  transition: $element $time $option
+
 body
-  padding: 30px
+  width: 100%
+  margin: 0
+
+  .content-desktop
+    padding: 30px
 
   .drop-down
     background-color: rgba(112, 255, 138, 0.5)
@@ -9,3 +19,39 @@ body
     position: absolute
     height: 100%
     width: 100%
+
+  .side-content
+    @include transition(all, 0.5s, ease)
+    background: #000
+    height: 100%
+    overflow-y: auto
+    position: fixed
+    width: 0
+    z-index: 1000
+
+    .option-container
+      padding: 5px
+
+    .text
+      color: #fff
+
+  .layout-content
+    @include transition(all, 0.5s, ease)
+    padding: 30px
+    position: absolute
+    right: -50px
+    width: 100%
+
+  .side-transition
+    @include transition(all, 0.5s, ease)
+    padding-left: 0
+
+    &.toggled
+      .side-content
+        width: 250px
+
+      .layout-content
+        right: -300px
+
+  pre
+    overflow-wrap: break-word

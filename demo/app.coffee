@@ -1,12 +1,13 @@
 do ->
   'use strict'
 
-  LoadDataMenu = ($scope, $http, deviceDetector, $mdSidenav, $mdUtil) ->
+  LoadDataMenu = ($scope, $http, deviceDetector) ->
     $scope.optionName = ""
     $scope.urlOption = ""
     $scope.iconDropdown = "drop-down"
     $scope.search1 = true
     $scope.search2 = true
+    $scope.toggeMenu = false
 
     $scope.$on('option',(event, name, url)->
       $scope.optionName = name
@@ -43,21 +44,12 @@ do ->
         $scope.isPortableDevice = true
     else
       $scope.isPortableDevice = false
-    $scope.toggleLeft = ()->
-      $mdSidenav('left')
-      .toggle()
-      return
-    $scope.close = () ->
-      $mdSidenav('left')
-      .close()
-      return
     return
 
   angular
-    .module('app',['dmk.menu','ng.deviceDetector','ngMaterial'])
+    .module('app',['dmk.menu','ng.deviceDetector'])
     .controller('LoadDataMenu', LoadDataMenu)
 
-  LoadDataMenu.$inject = ['$scope','$http', 'deviceDetector',
-                          '$mdSidenav', '$mdUtil']
+  LoadDataMenu.$inject = ['$scope','$http', 'deviceDetector']
 
   return

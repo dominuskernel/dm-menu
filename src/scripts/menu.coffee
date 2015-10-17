@@ -16,7 +16,7 @@ do ->
         dmkUrl: "="
         dmkType: "@"
 
-      link: (scope, element, attr) ->
+      link: (scope, element, attrs) ->
         if scope.dmkSearchFirst == ""
           scope.dmkSearchFirst = false
         if scope.dmkSearchSecond == ""
@@ -44,6 +44,7 @@ do ->
         scope.getNameDropdown = (name, url, hasSubMenu, parentIndex, index) ->
           scope.dmkNameOption = name
           scope.dmkUrl = url
+
           if hasSubMenu
             for i in [0...scope.dmkOptions[parentIndex].dropdowns.length]
               if scope.dmkOptions[parentIndex].dropdowns[i].name != name

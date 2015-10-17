@@ -1,7 +1,7 @@
 
 <div class="dmk-menu">
   <div class="menu-container-{{dmkType}}">
-    <ul>
+    <ul class="option-container">
       <li ng-repeat="option in dmkOptions track by $index" ng-click="getNameOption(option.name, option.url, option.dropdowns, $index);" ng-class="{'active':option.isActive == true}" class="option-nav-{{$index + 1}}"><span class="text">{{option.name}}</span><span ng-if="option.dropdowns != undefined" class="{{dmkIcon}}"></span>
         <ul ng-if="option.isActive == true &amp;&amp; option.dropdowns" class="dropdown-container">
           <li ng-if="dmkSearchFirst == true" ng-click="$event.stopPropagation()" class="search">

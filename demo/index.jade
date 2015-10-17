@@ -2,50 +2,35 @@ doctype html
 html(ng-app="app")
     include ./includes/head
     body(ng-controller='LoadDataMenu')
-        h1 dmk-menu
-        h3 Horizontal menu
-        div(ng-if="isPortableDevice == true")
-            span this example only is shown in descktop
         div(ng-if="isPortableDevice == false")
-            div(dmk-icon="iconDropdown"
-                dmk-menu dmk-type="horizontal"
-                dmk-options="dmkOptions"
-                dmk-search-first="search1"
-                dmk-search-second="search2"
-                dmk-name-option="optionName"
-                dmk-url="urlOption")
-            p(style="margin: 50px") Scope: {{optionName}}
-            p(style="margin: 50px") Scope: {{urlOption}}
+            .content-desktop
+                h1 dmk-menu
+                h3 Horizontal menu
+                div(dmk-icon="iconDropdown"
+                    dmk-menu dmk-type="horizontal"
+                    dmk-options="dmkOptions"
+                    dmk-search-first="search1"
+                    dmk-search-second="search2"
+                    dmk-name-option="optionName"
+                    dmk-url="urlOption")
+                p(style="margin: 50px") Scope: {{optionName}}
+                p(style="margin: 50px") Scope: {{urlOption}}
 
-            pre.
-                div(ng-if="isPortableDevice == true")
-                    span this example only is shown in descktop
-                div(ng-if="isPortableDevice == false")
-                    div(dmk-icon="iconDropdown"
-                        dmk-menu dmk-type="horizontal"
-                        dmk-options="dmkOptions"
-                        dmk-search-first="search1"
-                        dmk-search-second="search2"
-                        dmk-name-option="optionName"
-                        dmk-url="urlOption")
-                    p(style="margin: 50px") Scope: {{optionName}}
-                    p(style="margin: 50px") Scope: {{urlOption}}
+                pre.
+                    div(ng-if="isPortableDevice == false")
+                        div(dmk-icon="iconDropdown"
+                            dmk-menu dmk-type="horizontal"
+                            dmk-options="dmkOptions"
+                            dmk-search-first="search1"
+                            dmk-search-second="search2"
+                            dmk-name-option="optionName"
+                            dmk-url="urlOption")
+                        p(style="margin: 50px") Scope: {{optionName}}
+                        p(style="margin: 50px") Scope: {{urlOption}}
 
-        h3 Vertical menu
-        div(ng-if="isPortableDevice == true")
-            span this example only is shown in descktop
-        div(ng-if="isPortableDevice == false")
-            div(dmk-icon="iconDropdown"
-                dmk-menu dmk-type="vertical"
-                dmk-search-first="search1"
-                dmk-options="dmkOptions"
-                dmk-name-option="optionName"
-                dmk-url="urlOption")
-            p(style="margin: 50px") Scope: {{optionName}}
-            p(style="margin: 50px") Scope: {{urlOption}}
-            pre.
-                div(ng-if="isPortableDevice == false")
-                    div(dmk-icon="iconDropdown"
+                h3 Vertical menu
+                div(dmk-icon="iconDropdown"
+                    dmk-elements-by-page="elementsByPage"
                     dmk-menu dmk-type="vertical"
                     dmk-search-first="search1"
                     dmk-options="dmkOptions"
@@ -53,98 +38,104 @@ html(ng-app="app")
                     dmk-url="urlOption")
                 p(style="margin: 50px") Scope: {{optionName}}
                 p(style="margin: 50px") Scope: {{urlOption}}
-
-        h3 Mobile menu
-        div(ng-if="isPortableDevice == false")
-            span This example only is shown in tablets or mobiles
-        div(ng-if="isPortableDevice == true")
-            md-button.md-primary(ng-click="toggleLeft()")
-                span Menu
-            md-sidenav.md-sidenav-left(md-component-id="left")
-                md-content(layout-padding)
-                    div(dmk-icon="iconDropdown"
-                        dmk-menu dmk-type="mobile"
+                pre.
+                    div(ng-if="isPortableDevice == false")
+                        div(dmk-icon="iconDropdown"
+                        dmk-menu dmk-type="vertical"
+                        dmk-search-first="search1"
                         dmk-options="dmkOptions"
                         dmk-name-option="optionName"
                         dmk-url="urlOption")
                     p(style="margin: 50px") Scope: {{optionName}}
                     p(style="margin: 50px") Scope: {{urlOption}}
 
-        pre.
-            div(ng-if="isPortableDevice == false")
-            span This example only is shown in tablets or mobiles
-            div(ng-if="isPortableDevice == true")
-                md-button.md-primary(ng-click="toggleLeft()")
-                    span Menu
-                md-sidenav.md-sidenav-left(md-component-id="left")
-                    md-content(layout-padding)
-                        div(dmk-icon="iconDropdown"
-                            dmk-menu dmk-type="mobile"
-                            dmk-options="dmkOptions"
-                            dmk-name-option="optionName"
-                            dmk-url="urlOption")
-                        p(style="margin: 50px") Scope: {{optionName}}
-                        p(style="margin: 50px") Scope: {{urlOption}}
+                h3 Coffescript Controller
+                pre.
+                    do ->
+                        'use strict'
 
-        h3 Coffescript Controller
-        pre.
-            do ->
-                'use strict'
+                        LoadDataMenu = ($scope, $http, deviceDetector) ->
+                        $scope.optionName = ""
+                        $scope.urlOption = ""
+                        $scope.iconDropdown = "drop-down"
+                        $scope.search1 = true
+                        $scope.search2 = true
+                        $scope.toggeMenu = false
 
-                LoadDataMenu = ($scope, $http, deviceDetector, $mdSidenav, $mdUtil) ->
-                    $scope.optionName = ""
-                    $scope.urlOption = ""
-                    $scope.iconDropdown = "drop-down"
-                    $scope.search1 = true
-                    $scope.search2 = true
-
-                    $scope.$on('option',(event, name)->
+                        $scope.$on('option',(event, name, url)->
                         $scope.optionName = name
+                        $scope.urlOption = url
                         console.log($scope.optionName)
-                    )
+                            console.log($scope.urlOption)
+                        )
 
-                    $scope.$on('dropDown',(event, name)->
+                        $scope.$on('dropDown',(event, name, url)->
                         $scope.optionName = name
+                        $scope.urlOption = url
                         console.log($scope.optionName)
-                    )
+                            console.log($scope.urlOption)
+                        )
 
-                    $scope.$on('subOption',(event, name)->
+                        $scope.$on('subOption',(event, name, url)->
                         $scope.optionName = name
+                        $scope.urlOption = url
                         console.log($scope.optionName)
-                    )
+                            console.log($scope.urlOption)
+                        )
 
-                    $http.get('mocks/menu.json').success((data)->
+                        $http.get('mocks/menu.json').success((data)->
                         $scope.dmkOptions = data
-                        return
-                    )
-
-                    if deviceDetector.raw.device.android or
-                        deviceDetector.raw.device.ipad or
-                        deviceDetector.raw.device.iphone or
-                        deviceDetector.raw.device.ipod or
-                        deviceDetector.raw.device.blackberry or
-                        deviceDetector.raw.device.firefoxOs or
-                        deviceDetector.raw.device.windowsPhone
-                        $scope.isPortableDevice = true
-                    else
+                            return
+                        )
+                        if deviceDetector.raw.device.android or
+                            deviceDetector.raw.device.ipad or
+                            deviceDetector.raw.device.iphone or
+                            deviceDetector.raw.device.ipod or
+                            deviceDetector.raw.device.blackberry or
+                            deviceDetector.raw.device.firefoxOs or
+                            deviceDetector.raw.device.windowsPhone
+                            $scope.isPortableDevice = true
+                        else
                         $scope.isPortableDevice = false
-                        $scope.toggleLeft = ()->
-                            $mdSidenav('left')
-                            .toggle()
-                        $scope.close = () ->
-                            $mdSidenav('left')
-                            .close()
-                    return
+                            return
 
-                angular
-                    .module('app',['dmk.menu','ng.deviceDetector','ngMaterial'])
-                    .controller('LoadDataMenu', LoadDataMenu)
+                        angular
+                            .module('app',['dmk.menu','ng.deviceDetector'])
+                            .controller('LoadDataMenu', LoadDataMenu)
 
-                LoadDataMenu.$inject = ['$scope','$http', 'deviceDetector',
-                '$mdSidenav', '$mdUtil']
+                        LoadDataMenu.$inject = ['$scope','$http', 'deviceDetector']
 
-                return
+                            return
 
+        div(ng-if="isPortableDevice == true")
+            .side-transition(ng-class="{'toggled': toggleMenu}")
+                .side-content
+                    div(dmk-menu
+                        dmk-icon="iconDropdown"
+                        dmk-type="mobile"
+                        dmk-options="dmkOptions"
+                        dmk-name-option="optionName"
+                        dmk-url="urlOption")
+                .layout-content
+                    h1 dmk-menu
+                    h3 Horizontal menu
+                    button(ng-click="toggleMenu =! toggleMenu" )
+                        span Toggle Menu
+                    p(style="margin: 50px") Scope: {{optionName}}
+                    p(style="margin: 50px") Scope: {{urlOption}}
+
+                    pre.
+                        div(ng-if="isPortableDevice == false")
+                        span This example only is shown in tablets or mobiles
+                        div(ng-if="isPortableDevice == true")
+                            div(dmk-menu
+                                dmk-icon="iconDropdown"
+                                dmk-type="mobile"
+                                dmk-options="dmkOptions"
+                                dmk-name-option="optionName"
+                                dmk-url="urlOption")
+                            p(style="margin: 50px") Scope: {{optionName}}
+                            p(style="margin: 50px") Scope: {{urlOption}}
 
 
         include ./includes/scripts

@@ -3,6 +3,7 @@ do ->
 
   LoadDataMenu = ($scope, $http, deviceDetector) ->
     $scope.optionName = ""
+    $scope.placeHolder = "Todo"
     $scope.urlOption = ""
     $scope.iconDropdown = "drop-down"
     $scope.search1 = true

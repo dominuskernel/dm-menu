@@ -10,6 +10,8 @@
           dmkOptions: "=",
           dmkMainMenu: "=",
           dmkNameOption: "=",
+          dmkPlaceHolderFirst: "=",
+          dmkPlaceHolderSecond: "=",
           dmkSearchFirst: "=",
           dmkSearchSecond: "=",
           dmkUrl: "=",

@@ -9,8 +9,6 @@
         display: inline-block
 
     .dropdown-container
-      list-style-type: none
-      padding-left: 0
       position: absolute
       @if $display == vertical
         display: inline-block
@@ -23,6 +21,10 @@
         display: block
         left: 0
         top: 100%
+
+    .dropdown-list
+      list-style-type: none
+      padding-left: 0
 
     .dropdown-nav-#{$i}
       display: block
